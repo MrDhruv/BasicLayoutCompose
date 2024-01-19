@@ -33,37 +33,52 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhruv.basiclayoutcompose.ui.theme.BasicLayoutComposeTheme
-//import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
-//import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 
 
 
-
-class MainActivity : ComponentActivity() {
+class HomeScreenSlotAPI : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
-
             BasicLayoutComposeTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
+                    HomeSection(title = R.string.aling_body_title) {
+                        RowListItem(bodyDataList = getBodyData())
+                    }
                 }
             }
         }
     }
 }
 
+@Composable
+fun HomeSection(
+    @StringRes title: Int,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    Column {
+        Text(text = stringResource(title),
+            style=MaterialTheme.typography.titleMedium,
+            modifier= Modifier
+                .paddingFromBaseline(top = 40.dp, bottom = 16.dp)
+                .padding(horizontal = 16.dp))
+         content()
 
+    }
+
+}
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun HomeScreenSlotAPIPreview() {
     BasicLayoutComposeTheme {
-
+        HomeSection(title = R.string.aling_body_title) {
+           RowListItem(bodyDataList = getBodyData())
+       }
     }
 }
